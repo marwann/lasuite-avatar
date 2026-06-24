@@ -24,6 +24,8 @@
       "M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-96-88v64a8,8,0,0,1-16,0V132.94l-4.42,2.22a8,8,0,0,1-7.16-14.32l16-8A8,8,0,0,1,112,120Zm59.16,30.45L152,176h16a8,8,0,0,1,0,16H136a8,8,0,0,1-6.4-12.8l28.78-38.37A8,8,0,1,0,145.07,132a8,8,0,1,1-13.85-8A24,24,0,0,1,176,136,23.76,23.76,0,0,1,171.16,150.45Z",
     indispo:
       "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.56,87.56,0,0,1-20.41,56.28L71.72,60.4A88,88,0,0,1,216,128ZM40,128A87.56,87.56,0,0,1,60.41,71.72L184.28,195.6A88,88,0,0,1,40,128Z",
+    parentalite:
+      "M160,32h-8a16,16,0,0,0-16,16v56H55.2A40.07,40.07,0,0,0,16,72a8,8,0,0,0,0,16,24,24,0,0,1,24,24,80.09,80.09,0,0,0,80,80h40a80,80,0,0,0,0-160Zm63.48,72H166.81l41.86-33.49A63.73,63.73,0,0,1,223.48,104ZM160,48a63.59,63.59,0,0,1,36.69,11.61L152,95.35V48Zm0,128H120a64.09,64.09,0,0,1-63.5-56h167A64.09,64.09,0,0,1,160,176Zm-56,48a16,16,0,1,1-16-16A16,16,0,0,1,104,224Zm104,0a16,16,0,1,1-16-16A16,16,0,0,1,208,224Z",
   };
 
   const REASONS = [
@@ -34,6 +36,7 @@
     { id: "formation",   label: "Formation"   },
     { id: "rtt",         label: "RTT"         },
     { id: "indispo",     label: "Indisponible"},
+    { id: "parentalite", label: "Parentalité" },
   ];
 
   const PALETTE = {
@@ -48,6 +51,7 @@
     scheme: "blue",
     alpha: 0.55,
     zoom: 1,
+    offsetX: 0,
     offsetY: 0,
   };
 
@@ -66,7 +70,7 @@
     ctx.clip();
 
     // Photo / placeholder
-    if (state.image) drawCover(state.image, state.zoom, state.offsetY);
+    if (state.image) drawCover(state.image, state.zoom, state.offsetX, state.offsetY);
     else drawPlaceholder();
 
     // Overlay couleur
@@ -79,11 +83,11 @@
     ctx.restore();
   }
 
-  function drawCover(img, zoom, offY) {
+  function drawCover(img, zoom, offX, offY) {
     const base = Math.max(SIZE / img.width, SIZE / img.height);
     const s = base * zoom;
     const w = img.width * s, h = img.height * s;
-    const dx = (SIZE - w) / 2;
+    const dx = (SIZE - w) / 2 + offX * (w - SIZE) * 0.5;
     const dy = (SIZE - h) / 2 + offY * (h - SIZE) * 0.5;
     ctx.drawImage(img, dx, dy, w, h);
   }
@@ -179,6 +183,7 @@
       el.addEventListener("input", () => { state[key] = Number(el.value); out.textContent = fmt(state[key]); render(); });
     };
     bindSlider("zoom", "zoom");
+    bindSlider("offx", "offsetX");
     bindSlider("offy", "offsetY");
     bindSlider("alpha", "alpha");
 
@@ -206,9 +211,10 @@
 
     $("#btn-reset").addEventListener("click", () => {
       state.image = null; state.reasonId = "vacances"; state.scheme = "blue";
-      state.alpha = 0.55; state.zoom = 1; state.offsetY = 0;
+      state.alpha = 0.55; state.zoom = 1; state.offsetX = 0; state.offsetY = 0;
       $("#file").value = "";
       $("#zoom").value = 1; $("#zoom-val").textContent = "1.00";
+      $("#offx").value = 0; $("#offx-val").textContent = "0.00";
       $("#offy").value = 0; $("#offy-val").textContent = "0.00";
       $("#alpha").value = 0.55; $("#alpha-val").textContent = "0.55";
       $("#adjust").hidden = true;
