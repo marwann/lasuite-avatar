@@ -22,3 +22,7 @@ Tout est traité dans le navigateur, aucun fichier n'est envoyé.
 HTML / CSS / JS vanilla — zéro dépendance runtime.  
 Icônes : [Phosphor Icons](https://phosphoricons.com/) (ISC).  
 Police : Marianne (DSFR, MIT).
+
+## Licence
+
+[MIT](LICENSE)
