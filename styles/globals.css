@@ -44,6 +44,8 @@ input { font-family: inherit; }
   align-items: center;
   padding: 14px 24px;
   gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Government logo block — hidden on mobile */
