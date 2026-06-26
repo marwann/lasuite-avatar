@@ -178,9 +178,16 @@
     ["dragleave","drop"].forEach((ev) => dz.addEventListener(ev, () => dz.classList.remove("is-drag")));
     dz.addEventListener("drop", (e) => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); });
 
+    const setRangeProgress = (el) => {
+      const min = parseFloat(el.min) || 0, max = parseFloat(el.max) || 100;
+      const pct = ((parseFloat(el.value) - min) / (max - min)) * 100;
+      el.style.setProperty("--progress", pct + "%");
+    };
+
     const bindSlider = (id, key, fmt = (v) => v.toFixed(2)) => {
       const el = $("#" + id), out = $("#" + id + "-val");
-      el.addEventListener("input", () => { state[key] = Number(el.value); out.textContent = fmt(state[key]); render(); });
+      setRangeProgress(el);
+      el.addEventListener("input", () => { state[key] = Number(el.value); out.textContent = fmt(state[key]); setRangeProgress(el); render(); });
     };
     bindSlider("zoom", "zoom");
     bindSlider("offx", "offsetX");
@@ -217,6 +224,7 @@
       $("#offx").value = 0; $("#offx-val").textContent = "0.00";
       $("#offy").value = 0; $("#offy-val").textContent = "0.00";
       $("#alpha").value = 0.55; $("#alpha-val").textContent = "0.55";
+      document.querySelectorAll('.slider input[type="range"]').forEach(setRangeProgress);
       $("#adjust").hidden = true;
       const dl = $("#btn-download"); dl.textContent = "Envoyer une photo"; dl.dataset.mode = "upload";
       $("#btn-copy").hidden = true;
