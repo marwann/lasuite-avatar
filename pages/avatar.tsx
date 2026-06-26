@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Script from 'next/script'
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
 export default function Avatar() {
   return (
     <>
@@ -14,11 +16,11 @@ export default function Avatar() {
       <header className="topbar">
         <div className="topbar__inner">
           <a className="brand-gouv" href="https://gouvernement.fr" target="_blank" rel="noopener" aria-label="Gouvernement - Liberté, Égalité, Fraternité">
-            <img className="brand-gouv__logo" src="/assets/gouv.svg" alt="GOUVERNEMENT - Liberté, Égalité, Fraternité" />
+            <img className="brand-gouv__logo" src={`${BASE}/assets/gouv.svg`} alt="GOUVERNEMENT - Liberté, Égalité, Fraternité" />
           </a>
           <span className="header-sep" aria-hidden="true" />
           <a className="brand" href="https://lasuite.numerique.gouv.fr/" target="_blank" rel="noopener">
-            <img className="brand__logo" src="/assets/lasuite.svg" alt="LaSuite" />
+            <img className="brand__logo" src={`${BASE}/assets/lasuite.svg`} alt="LaSuite" />
           </a>
         </div>
       </header>
@@ -122,12 +124,13 @@ export default function Avatar() {
         <div className="site-footer__inner">
           <div className="site-footer__top">
             <a className="footer-brand" href="https://lasuite.numerique.gouv.fr/" target="_blank" rel="noopener" aria-label="LaSuite - Direction interministérielle du numérique">
+              <img src={`${BASE}/assets/marianne.svg`} alt="" aria-hidden className="footer-marianne-logo" />
               <span className="footer-brand-sep" aria-hidden="true" />
               <span className="footer-brand__text">Direction<br />interministérielle<br />du numérique</span>
             </a>
             <div className="footer-right">
               <a href="https://numerique.gouv.fr" target="_blank" rel="noopener" aria-label="numerique.gouv.fr - Nouvelle fenêtre">
-                <img src="/numeriquegouv.png" alt="numerique.gouv.fr - L'alliance du numérique de l'État" className="footer-numerique-logo" />
+                <img src={`${BASE}/numeriquegouv.png`} alt="numerique.gouv.fr - L'alliance du numérique de l'État" className="footer-numerique-logo" />
               </a>
               <ul className="footer-external-links">
                 <li><a href="https://legifrance.gouv.fr/fr/" target="_blank" rel="noopener">legifrance.gouv.fr</a></li>
@@ -157,7 +160,7 @@ export default function Avatar() {
         </div>
       </footer>
 
-      <Script src="/app.js" strategy="afterInteractive" />
+      <Script src={`${BASE}/app.js`} strategy="afterInteractive" />
     </>
   )
 }
