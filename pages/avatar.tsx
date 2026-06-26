@@ -100,7 +100,7 @@ export default function Avatar() {
               <div className="field">
                 <div className="field__label">Intensité</div>
                 <label className="slider">
-                  <div className="slider__head"><span>Opacité du voile</span><span id="alpha-val" className="mono">0.55</span></div>
+                  <div className="slider__head"><span id="alpha-val" className="mono">0.55</span></div>
                   <input id="alpha" type="range" min="0.2" max="0.9" step="0.01" defaultValue="0.55" />
                 </label>
               </div>
