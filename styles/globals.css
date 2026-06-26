@@ -1,3 +1,7 @@
+@font-face { font-family: "Marianne"; font-weight: 400; font-style: normal; font-display: swap; src: url('./fonts/Marianne-Regular.woff2') format('woff2'); }
+@font-face { font-family: "Marianne"; font-weight: 500; font-style: normal; font-display: swap; src: url('./fonts/Marianne-Medium.woff2') format('woff2'); }
+@font-face { font-family: "Marianne"; font-weight: 700 800; font-style: normal; font-display: swap; src: url('./fonts/Marianne-Bold.woff2') format('woff2'); }
+
 :root {
   --brand:      #3E5DE7;
   --brand-deep: #2845C1;
@@ -15,7 +19,7 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  font-family: var(--font-marianne), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: "Marianne", system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--bg-tint);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
